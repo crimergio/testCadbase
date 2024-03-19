@@ -8,6 +8,9 @@ import static com.codeborne.selenide.Selenide.open;
 import com.github.javafaker.Faker;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Condition.text;
+import com.codeborne.selenide.logevents.SelenideLogger;
+import static io.qameta.allure.Allure.step;
+import io.qameta.allure.selenide.AllureSelenide;
 
 
 class AppTest {
@@ -26,7 +29,10 @@ class AppTest {
 	}
 	@Test
 	public void unsuccessfulPassword() {
+            SelenideLogger.addListener("allure", new AllureSelenide());
+            step("Открываем главную страницу", () -> { 
 		openSite();
+                      });
 		$("#username").setValue(firstName); 
 		$("#password").setValue(""); 
 		$(("#submit-button")).click(); 
